@@ -248,10 +248,11 @@ public class VehicleControl : MonoBehaviour
 
         wheelCol.transform.parent = transform;
         wheelCol.transform.position = wheel.position;
-        wheelCol.transform.eulerAngles = transform.eulerAngles;
+        //wheelCol.transform.eulerAngles = wheel.transform.eulerAngles;
+        wheelCol.transform.eulerAngles = new Vector3(90f,90f,90f);
         pos_y = wheelCol.transform.localPosition.y;
 
-        WheelCollider col = (WheelCollider)wheelCol.AddComponent(typeof(WheelCollider));
+        wheelCol.AddComponent(typeof(WheelCollider));
 
         result.wheel = wheel;
         result.collider = wheelCol.GetComponent<WheelCollider>();
@@ -919,7 +920,8 @@ public class VehicleControl : MonoBehaviour
 
 
         int index = (int)(motorRPM / efficiencyTableStep);
-        if (index >= efficiencyTable.Length) index = efficiencyTable.Length - 1;
+        if (index >= efficiencyTable.Length) 
+            index = efficiencyTable.Length - 1;
         if (index < 0) index = 0;
 
 
