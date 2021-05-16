@@ -719,13 +719,35 @@ public class VehicleControl : MonoBehaviour
             {
 
 
-                col.brakeTorque = accel == 0 || NeutralGear ? col.brakeTorque = 1000 : col.brakeTorque = 0;
+                //col.brakeTorque = accel == 0 || NeutralGear ? col.brakeTorque = 1000 : col.brakeTorque = 0;
 
+                if (accel == 0 || NeutralGear == true)
+                {
+                    Debug.Log("chk");
+                    col.brakeTorque = 1000;
+                }
+                else
+                {
+                    Debug.Log("chk2222222");
+                    col.brakeTorque = 0;
+                }
 
-                slip = speed > 0.0f ?
-    (speed > 100 ? slip = Mathf.Lerp(slip, 1.0f + Mathf.Abs(steer), 0.02f) : slip = Mathf.Lerp(slip, 1.5f, 0.02f))
-    : slip = Mathf.Lerp(slip, 0.01f, 0.02f);
-
+                //slip = speed > 0.0f ? (speed > 100 ? slip = Mathf.Lerp(slip, 1.0f + Mathf.Abs(steer), 0.02f) : slip = Mathf.Lerp(slip, 1.5f, 0.02f)) : slip = Mathf.Lerp(slip, 0.01f, 0.02f);
+                if (speed > 0f)
+                {
+                    if (speed > 100)
+                    {
+                        slip = Mathf.Lerp(slip, 1f + Mathf.Abs(steer), 0.02f);
+                    }
+                    else
+                    {
+                        slip = Mathf.Lerp(slip, 1.5f, 0.02f);
+                    }
+                }
+                else
+                {
+                    slip = Mathf.Lerp(slip, 0.01f, 0.02f);
+                }
 
                 w_rotate = w.rotation;
 
@@ -886,7 +908,7 @@ public class VehicleControl : MonoBehaviour
 
                 }
 
-
+                
                 lp.y -= Vector3.Dot(w.wheel.position - hit.point, transform.TransformDirection(0, 1, 0) / transform.lossyScale.x) - (col.radius);
                 lp.y = Mathf.Clamp(lp.y, -10.0f, w.pos_y);
                 floorContact = floorContact || (w.drive);
@@ -958,7 +980,7 @@ public class VehicleControl : MonoBehaviour
                             (speed < carSetting.LimitBackwardSpeed && currentGear == 0))
                         {
 
-                            col.motorTorque = curTorqueCol * 0.9f + newTorque * 1.0f;
+                            col.motorTorque = curTorqueCol * 0.9f + newTorque * 1.0f;   //마력
                         }
                         else
                         {

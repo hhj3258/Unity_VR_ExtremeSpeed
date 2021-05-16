@@ -51,6 +51,20 @@ public class CarSettings : MonoBehaviour
         public AudioSource switchGear;
     }
 
+    // 파티클 세팅 ////////////////////////////////////////////////////////////
+
+    [SerializeField]
+    protected CarParticles carParticles;
+
+    [Serializable]
+    protected class CarParticles
+    {
+        public GameObject brakeParticlePrefab;
+        public ParticleSystem siftParticle1, shiftParticle2;
+        private GameObject[] wheelParticle = new GameObject[4];
+    }
+
+
     // 엔진 세팅 //////////////////////////////////////////////////////////////
 
     [SerializeField]

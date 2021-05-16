@@ -4038,7 +4038,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1828655695047518049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4068,6 +4068,10 @@ MonoBehaviour:
     lowEngine: {fileID: 0}
     highEngine: {fileID: 0}
     switchGear: {fileID: 0}
+  carParticles:
+    brakeParticlePrefab: {fileID: 0}
+    siftParticle1: {fileID: 0}
+    shiftParticle2: {fileID: 0}
   carSetting:
     handle: {fileID: 1831286404765033427}
     hitGround: []
@@ -15508,7 +15512,7 @@ PrefabInstance:
     - target: {fileID: 2039757133439313968, guid: c6b88e31e38d98747bf9023d5eac2d11,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2043269692469104840, guid: c6b88e31e38d98747bf9023d5eac2d11,
         type: 3}
@@ -15518,7 +15522,7 @@ PrefabInstance:
     - target: {fileID: 2043269692469104840, guid: c6b88e31e38d98747bf9023d5eac2d11,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 8.7
       objectReference: {fileID: 0}
     - target: {fileID: 2043269692469104840, guid: c6b88e31e38d98747bf9023d5eac2d11,
         type: 3}
@@ -15578,22 +15582,22 @@ PrefabInstance:
     - target: {fileID: 2043376109644883888, guid: c6b88e31e38d98747bf9023d5eac2d11,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.4999999
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 2043376109644883888, guid: c6b88e31e38d98747bf9023d5eac2d11,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.5000001
+      value: 0.00000013240823
       objectReference: {fileID: 0}
     - target: {fileID: 2043376109644883888, guid: c6b88e31e38d98747bf9023d5eac2d11,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.5000001
+      value: -0.00000013240823
       objectReference: {fileID: 0}
     - target: {fileID: 2043376109644883888, guid: c6b88e31e38d98747bf9023d5eac2d11,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.4999999
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 2043376109644883888, guid: c6b88e31e38d98747bf9023d5eac2d11,
         type: 3}
@@ -15613,7 +15617,7 @@ PrefabInstance:
     - target: {fileID: 2043376109644883888, guid: c6b88e31e38d98747bf9023d5eac2d11,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2043376109644883888, guid: c6b88e31e38d98747bf9023d5eac2d11,
         type: 3}
