@@ -314,6 +314,7 @@ public class VehicleControl : MonoBehaviour
             fc.asymptoteSlip = 20.0f;
             fc.stiffness = carSetting.stiffness;
             col.forwardFriction = fc;
+
             fc = col.sidewaysFriction;
             fc.asymptoteValue = 7500.0f;
             fc.asymptoteSlip = 2.0f;
@@ -342,13 +343,17 @@ public class VehicleControl : MonoBehaviour
                 carSounds.switchGear.GetComponent<AudioSource>().Play();
 
 
-                if (!carSetting.automaticGear)
+            if (!carSetting.automaticGear)
             {
                 if (currentGear == 0)
                 {
-                    if (NeutralGear){currentGear++;NeutralGear = false;}
+                    if (NeutralGear) 
+                    { 
+                        currentGear++; 
+                        NeutralGear = false; 
+                    }
                     else
-                    { NeutralGear = true;}
+                    { NeutralGear = true; }
                 }
                 else
                 {
@@ -411,7 +416,8 @@ public class VehicleControl : MonoBehaviour
 
             collision.transform.root.GetComponent<VehicleControl>().slip2 = Mathf.Clamp(collision.relativeVelocity.magnitude, 0.0f, 10.0f);
 
-            myRigidbody.angularVelocity = new Vector3(-myRigidbody.angularVelocity.x * 0.5f, myRigidbody.angularVelocity.y * 0.5f, -myRigidbody.angularVelocity.z * 0.5f);
+            myRigidbody.angularVelocity = 
+                new Vector3(-myRigidbody.angularVelocity.x * 0.5f, myRigidbody.angularVelocity.y * 0.5f, -myRigidbody.angularVelocity.z * 0.5f);
             myRigidbody.velocity = new Vector3(myRigidbody.velocity.x, myRigidbody.velocity.y * 0.5f, myRigidbody.velocity.z);
 
 
@@ -506,6 +512,7 @@ public class VehicleControl : MonoBehaviour
                 if (carWheels.wheels.frontWheelDrive || carWheels.wheels.backWheelDrive)
                 {
                     steer = Mathf.MoveTowards(steer, Input.GetAxis("Horizontal"), 0.2f);
+                    //steer = Input.GetAxis("Horizontal");
                     accel = Input.GetAxis("Vertical");
                     brake = Input.GetButton("Jump");
                     shift = Input.GetKey(KeyCode.LeftShift) | Input.GetKey(KeyCode.RightShift);

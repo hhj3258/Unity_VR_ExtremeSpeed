@@ -87,7 +87,7 @@ public class CarSettings : MonoBehaviour
         public float[] gears = {-10f, 9f, 6f, 4.5f, 3f, 2.5f};
 
         public float limitBackwardSpeed = 60f;  //최고 후진 속도
-        public float limitForwardSpeed = 220f;  //최고 속도
+        public float limitForwardSpeed = 220f;  //최고 전진 속도
 
     }
     

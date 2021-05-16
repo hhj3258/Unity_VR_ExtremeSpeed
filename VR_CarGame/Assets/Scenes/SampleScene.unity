@@ -4060,9 +4060,9 @@ MonoBehaviour:
       backRight: {fileID: 1831475618059496403}
       backLeft: {fileID: 1829836844742890078}
     setting:
-      radius: 0.35
+      radius: 0.33
       weight: 1000
-      distance: 0.2
+      distance: 0.05
   carSounds:
     idleEngine: {fileID: 0}
     lowEngine: {fileID: 0}
@@ -15619,6 +15619,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.000015258789
+      objectReference: {fileID: 0}
+    - target: {fileID: 2038767226747347510, guid: c6b88e31e38d98747bf9023d5eac2d11,
+        type: 3}
+      propertyPath: carSetting.shiftUpRPM
+      value: 3000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6b88e31e38d98747bf9023d5eac2d11, type: 3}

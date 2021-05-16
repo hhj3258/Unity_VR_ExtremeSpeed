@@ -75,36 +75,139 @@ public class CarControl : CarSetValues
             steerCurAngle = carSetting.handle.localEulerAngles;
 
 
-        //foreach (nWheelComponent w in wheels)
+        foreach(nWheelComponent w in wheels)
+        {
+            WheelCollider col = w.collider;
+            col.suspensionDistance = carWheels.setting.distance;
+            
+            //차량 스프링, 댐퍼
+            JointSpring js = col.suspensionSpring;
+            js.spring = carSetting.springs;
+            js.damper = carSetting.dampers;
+            col.suspensionSpring = js;
+
+            col.radius = carWheels.setting.radius;
+            col.mass = carWheels.setting.weight;
+
+
+            WheelFrictionCurve wfc;     //휠 마찰력 그래프 설정
+
+            wfc = col.forwardFriction;
+            wfc.asymptoteValue = 5000f;
+            wfc.extremumSlip = 2f;
+            wfc.asymptoteSlip = 20f;
+            wfc.stiffness = carSetting.stiffness;
+            col.forwardFriction = wfc;
+
+            wfc = col.sidewaysFriction;
+            wfc.asymptoteValue = 7500f;
+            wfc.asymptoteSlip = 2f;
+            wfc.stiffness = carSetting.stiffness;
+            col.sidewaysFriction = wfc;
+
+        }
+    }
+
+    //기어 상승
+    public void ShiftUp()
+    {
+        float now = Time.timeSinceLevelLoad;    //현재 씬 시작 후 경과 시간
+
+        if (now < shiftDelay) return;
+
+        //현재 기어단이 6보다 작을 때만
+        if (currentGear < carSetting.gears.Length - 1)
+        {
+            carSounds.switchGear.GetComponent<AudioSource>().Play();
+
+            currentGear++;
+
+            shiftDelay = now + 1f;
+            shiftTime = 1.5f;
+        }
+    }
+
+    public void ShiftDown()
+    {
+        float now = Time.timeSinceLevelLoad;    //현재 씬 시작 후 경과 시간
+
+        if (now < shiftDelay) return;
+
+        if(currentGear > 0 || neutralGear)
+        {
+            carSounds.switchGear.GetComponent<AudioSource>().Play();
+
+            currentGear--;
+
+            shiftDelay = now + 0.1f;
+            shiftTime = 2f;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //if (collision.transform.root.GetComponent<CarControl>())
         //{
 
-        //    WheelCollider col = w.collider;
-        //    col.suspensionDistance = carWheels.setting.distance;
-        //    JointSpring js = col.suspensionSpring;
-
-        //    js.spring = carSetting.springs;
-        //    js.damper = carSetting.dampers;
-        //    col.suspensionSpring = js;
-
-
-        //    col.radius = carWheels.setting.radius;
-
-        //    col.mass = carWheels.setting.weight;
-
-
-        //    WheelFrictionCurve fc = col.forwardFriction;
-
-        //    fc.asymptoteValue = 5000.0f;
-        //    fc.extremumSlip = 2.0f;
-        //    fc.asymptoteSlip = 20.0f;
-        //    fc.stiffness = carSetting.stiffness;
-        //    col.forwardFriction = fc;
-        //    fc = col.sidewaysFriction;
-        //    fc.asymptoteValue = 7500.0f;
-        //    fc.asymptoteSlip = 2.0f;
-        //    fc.stiffness = carSetting.stiffness;
-        //    col.sidewaysFriction = fc;
-
         //}
+    }
+
+    private void FixedUpdate()
+    {
+        speed = myRigidbody.velocity.magnitude * 2.7f;
+
+        if(speed < lastSpeed -10&& slip < 10)
+        {
+            slip = lastSpeed / 15f;
+        }
+
+        lastSpeed = speed;
+
+        //if (slip2 != 0f)
+        //{
+        //    slip2 = Mathf.MoveTowards(slip2, 0f, 0f);
+        //}
+
+        myRigidbody.centerOfMass = carSetting.centerMass;
+
+
+        //조작키 할당
+        if(carWheels.wheels.frontWheelDrive || carWheels.wheels.backWheelDrive)
+        {
+            //steer = Mathf.MoveTowards(steer, Input.GetAxis("Horizontal"), 0.2f);
+            steer = Input.GetAxis("Horizontal");
+            accel = Input.GetAxis("Vertical");
+            brake = Input.GetButton("Jump");
+        }
+
+        //전륜구동, 후륜구동, 사륜구동이 아니면 액셀=0
+        if (!carWheels.wheels.frontWheelDrive && !carWheels.wheels.backWheelDrive)
+            accel = 0.0f;
+
+        if (carSetting.handle)
+            //핸들의 z축만 A,D 인풋에 따라 회전시켜줌
+            carSetting.handle.localEulerAngles = 
+                new Vector3(steerCurAngle.x, steerCurAngle.y, steerCurAngle.z + (steer * -120.0f));
+
+
+        if(currentGear == 1 && accel < 0f)
+        {
+            //기어가 1단이고 액셀이 0보다 작고 스피드가 5보다 작으면 기어다운
+            if (speed < 5f) ShiftDown();
+        }
+        else if (currentGear == 0 && accel > 0f)
+        {
+            if (speed < 5f) ShiftUp();
+        }
+        else if (motorRPM > carSetting.shiftUpRPM && accel > 0f && speed > 10f && !brake)
+        {
+            ShiftUp();
+        }
+        else if (motorRPM < carSetting.shiftDownRPM)
+        {
+            ShiftDown();
+        }
+
+
     }
 }

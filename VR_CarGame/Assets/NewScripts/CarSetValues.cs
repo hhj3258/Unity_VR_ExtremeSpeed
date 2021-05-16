@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class CarSetValues : CarSettings
 {
-    //클래스 각각 만들어서 쓰는게 더 알아보기 편할듯
-    protected float steer = 0f;
-    protected float accel = 0f;
+    
+    protected float steer = 0f;     //A,D
+    protected float accel = 0f;     //W,S
 
-    protected bool breake;
+    protected bool brake;   //SPACE
 
     protected bool shifmotor;
 
@@ -52,7 +52,7 @@ public class CarSetValues : CarSettings
 
     protected GameObject[] Particle = new GameObject[4];
 
-    protected Vector3 steerCurAngle;  //현재 각도
+    protected Vector3 steerCurAngle;  //현재 핸들 각도
 
     protected Rigidbody myRigidbody;
 }
