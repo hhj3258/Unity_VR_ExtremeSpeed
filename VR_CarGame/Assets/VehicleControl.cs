@@ -984,6 +984,7 @@ public class VehicleControl : MonoBehaviour
                         }
                         else
                         {
+                            //브레이크 안밟고, 액셀이 0이 아니고, 
                             col.motorTorque = 0;
                             col.brakeTorque = 2000;
                         }

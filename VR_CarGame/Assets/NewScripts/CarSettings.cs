@@ -60,7 +60,7 @@ public class CarSettings : MonoBehaviour
     protected class CarParticles
     {
         public GameObject brakeParticlePrefab;
-        public ParticleSystem siftParticle1, shiftParticle2;
+        //public ParticleSystem siftParticle1, shiftParticle2;
         private GameObject[] wheelParticle = new GameObject[4];
     }
 

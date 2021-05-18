@@ -340,6 +340,7 @@ public class CarControl : CarSetValues
                         Particle[currentWheel].GetComponent<AudioSource>().rolloffMode = AudioRolloffMode.Custom;
                     }
 
+                    var pc = Particle[currentWheel].GetComponent<ParticleSystem>();
                     bool wGrounded = false;
 
                     for(int i = 0; i < carSetting.hitGround.Length; i++)
@@ -365,6 +366,8 @@ public class CarControl : CarSetValues
 
                     if(wGrounded && speed > 5 && !brake)
                     {
+                        pc.enableEmission = true;
+
                         Particle[currentWheel].GetComponent<AudioSource>().volume = 0.5f;
 
                         if (!Particle[currentWheel].GetComponent<AudioSource>().isPlaying)
@@ -379,11 +382,15 @@ public class CarControl : CarSetValues
 
                             if (!Particle[currentWheel].GetComponent<AudioSource>().isPlaying)
                                 Particle[currentWheel].GetComponent<AudioSource>().Play();
-                            
+
+                            pc.enableEmission = true;
+                            Particle[currentWheel].GetComponent<AudioSource>().volume = 10;
                         }
                     }
                     else
                     {
+                        pc.enableEmission = false;
+
                         Particle[currentWheel].GetComponent<AudioSource>().volume = 
                             Mathf.Lerp(Particle[currentWheel].GetComponent<AudioSource>().volume, 0, Time.deltaTime * 10.0f);
                     }
@@ -397,6 +404,12 @@ public class CarControl : CarSetValues
             }   // end if(col.GetGroundHit(out hit))
             else
             {
+                if (Particle[currentWheel] != null)
+                {
+                    var pc = Particle[currentWheel].GetComponent<ParticleSystem>();
+                    pc.enableEmission = false;
+                }
+
                 wlp.y = w.startPos.y - carWheels.setting.distance;
 
                 myRigidbody.AddForce(Vector3.down * 5000);
@@ -407,6 +420,104 @@ public class CarControl : CarSetValues
             w.wheel.localPosition = wlp;    
         } // end foreach
 
+
+        //구동 휠 갯수만큼 rpm을 나눠서 적용시켜줌
+        if(motorizedWheels > 1)
+        {
+            rpm = rpm / motorizedWheels;
+        }
+
+        motorRPM = 0.95f * motorRPM + 0.05f * Mathf.Abs(rpm * carSetting.gears[currentGear]);
+        if (motorRPM > 5500f) motorRPM = 5200f;
+
+        int index = (int)(motorRPM / efficiencyTableStep);
+        if (index >= efficiencyTable.Length)
+            index = efficiencyTable.Length - 1;
+        if (index < 0) index = 0;
+
+
+        float newTorque = curTorque * carSetting.gears[currentGear] * efficiencyTable[index];
+
+        foreach(nWheelComponent w in wheels)
+        {
+            WheelCollider col = w.collider;
+
+            if (w.drive)
+            {
+                if (Mathf.Abs(col.rpm) > Mathf.Abs(wantedRPM))
+                {
+                    col.motorTorque = 0;
+                }
+                else
+                {
+                    float curTorqueCol = col.motorTorque;
+
+                    if (!brake && accel != 0 && neutralGear == false)
+                    {
+                        if ((speed < carSetting.limitForwardSpeed && currentGear > 0) || (speed < carSetting.limitBackwardSpeed && currentGear == 0))
+                        {
+                            col.motorTorque = curTorqueCol * 0.9f + newTorque * 1f;
+                        }
+                        else
+                        {
+                            col.motorTorque = 0;
+                            col.brakeTorque = 2000f;
+                        }
+                    }
+                    else
+                    {
+                        col.motorTorque = 0;
+                    }
+                }
+            }
+
+            if (brake || slip2 > 2.0f)
+            {
+                col.steerAngle = Mathf.Lerp(col.steerAngle, steer * w.maxSteer, 0.02f);
+            }
+            else
+            {
+                float SteerAngle = Mathf.Clamp(speed / carSetting.maxSteerAngle, 1f, carSetting.maxSteerAngle);
+                col.steerAngle = steer * (w.maxSteer / SteerAngle);
+            }
+
+        }
+
+
+
+        pitch = Mathf.Clamp(1.2f + ((motorRPM - carSetting.idleRPM) / (carSetting.shiftUpRPM - carSetting.idleRPM)), 1.0f, 10.0f);
+
+        shiftTime = Mathf.MoveTowards(shiftTime, 0.0f, 0.1f);
+
+        if (pitch == 1)
+        {
+            carSounds.idleEngine.volume = Mathf.Lerp(carSounds.idleEngine.volume, 1.0f, 0.1f);
+            carSounds.lowEngine.volume = Mathf.Lerp(carSounds.lowEngine.volume, 0.5f, 0.1f);
+            carSounds.highEngine.volume = Mathf.Lerp(carSounds.highEngine.volume, 0.0f, 0.1f);
+
+        }
+        else
+        {
+
+            carSounds.idleEngine.volume = Mathf.Lerp(carSounds.idleEngine.volume, 1.8f - pitch, 0.1f);
+
+
+            if ((pitch > pitchDelay || accel > 0) && shiftTime == 0.0f)
+            {
+                carSounds.lowEngine.volume = Mathf.Lerp(carSounds.lowEngine.volume, 0.0f, 0.2f);
+                carSounds.highEngine.volume = Mathf.Lerp(carSounds.highEngine.volume, 1.0f, 0.1f);
+            }
+            else
+            {
+                carSounds.lowEngine.volume = Mathf.Lerp(carSounds.lowEngine.volume, 0.5f, 0.1f);
+                carSounds.highEngine.volume = Mathf.Lerp(carSounds.highEngine.volume, 0.0f, 0.2f);
+            }
+
+            carSounds.highEngine.pitch = pitch;
+            carSounds.lowEngine.pitch = pitch;
+
+            pitchDelay = pitch;
+        }
 
     }
 }
