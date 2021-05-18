@@ -8,8 +8,10 @@ using UnityEngine;
 public class CarControl : CarSetValues
 {
 
+    [SerializeField] private InputManager im;
     private nWheelComponent[] wheels;   //바퀴 갯수만큼 배열 index 설정할 것
-    
+    private GameObject mainCam;
+
     private class nWheelComponent
     {
         public Transform wheel;
@@ -48,8 +50,12 @@ public class CarControl : CarSetValues
         return result;
     }
 
+
+    
     private void Awake()
     {
+        mainCam = GameObject.FindWithTag("MainCamera");
+
         if (carSetting.automaticGear) 
             neutralGear = false;
 
@@ -106,6 +112,8 @@ public class CarControl : CarSetValues
             col.sidewaysFriction = wfc;
 
         }
+
+        
     }
 
     //기어 상승
@@ -145,18 +153,21 @@ public class CarControl : CarSetValues
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        //if (collision.transform.root.GetComponent<CarControl>())
-        //{
 
-        //}
+    
+    private void Update()
+    {
+        carSounds.idleEngine.transform.position = mainCam.transform.position;
+        carSounds.lowEngine.transform.position = mainCam.transform.position;
+        carSounds.highEngine.transform.position = mainCam.transform.position;
+        carSounds.switchGear.transform.position = mainCam.transform.position;
     }
 
     private void FixedUpdate()
     {
+        //Debug.Log("speed:"+speed);
         speed = myRigidbody.velocity.magnitude * 2.7f;
-
+        
         if(speed < lastSpeed -10&& slip < 10)
         {
             slip = lastSpeed / 15f;
@@ -164,21 +175,16 @@ public class CarControl : CarSetValues
 
         lastSpeed = speed;
 
-        //if (slip2 != 0f)
-        //{
-        //    slip2 = Mathf.MoveTowards(slip2, 0f, 0f);
-        //}
-
         myRigidbody.centerOfMass = carSetting.centerMass;
 
 
         //조작키 할당
         if(carWheels.wheels.frontWheelDrive || carWheels.wheels.backWheelDrive)
         {
-            //steer = Mathf.MoveTowards(steer, Input.GetAxis("Horizontal"), 0.2f);
-            steer = Input.GetAxis("Horizontal");
-            accel = Input.GetAxis("Vertical");
-            brake = Input.GetButton("Jump");
+            steer = im.steer;
+            accel = im.accel;
+            //Debug.Log(accel);
+            brake = im.brake;
         }
 
         //전륜구동, 후륜구동, 사륜구동이 아니면 액셀=0
@@ -307,12 +313,31 @@ public class CarControl : CarSetValues
             wfc.extremumSlip = 0.2f + Mathf.Abs(steer);
             col.sidewaysFriction = wfc;
 
+            if (shift && (currentGear > 1 && speed > 50.0f) && shifmotor && Mathf.Abs(steer) < 0.2f)
+            {
 
-            //if(shift&&(currentGear > 1 && speed > 50f) && shifmotor && Mathf.Abs(steer) < 0.2f)
-            //{
+                if (powerShift == 0) { shifmotor = false; }
 
-            //}
+                powerShift = Mathf.MoveTowards(powerShift, 0.0f, Time.deltaTime * 10.0f);
 
+
+
+                curTorque = powerShift > 0 ? carSetting.shiftPower : carSetting.power;
+
+            }
+            else
+            {
+
+                if (powerShift > 20)
+                {
+                    shifmotor = true;
+                }
+
+
+                powerShift = Mathf.MoveTowards(powerShift, 100.0f, Time.deltaTime * 5.0f);
+                curTorque = carSetting.power;
+
+            }
 
             //바퀴 회전
             w.rotation = Mathf.Repeat(w.rotation + col.rpm * 360f / 60f * Time.deltaTime, 360f);
@@ -323,6 +348,7 @@ public class CarControl : CarSetValues
 
             Vector3 wlp = w.wheel.localPosition;    //wheel local position
 
+            //바닥 태그에 따른 브레이크 사운드와 파티클 설정
             if(col.GetGroundHit(out hit))
             {
                 if (carParticles.brakeParticlePrefab)
@@ -477,6 +503,7 @@ public class CarControl : CarSetValues
             }
             else
             {
+                
                 float SteerAngle = Mathf.Clamp(speed / carSetting.maxSteerAngle, 1f, carSetting.maxSteerAngle);
                 col.steerAngle = steer * (w.maxSteer / SteerAngle);
             }
@@ -485,8 +512,8 @@ public class CarControl : CarSetValues
 
 
 
-        pitch = Mathf.Clamp(1.2f + ((motorRPM - carSetting.idleRPM) / (carSetting.shiftUpRPM - carSetting.idleRPM)), 1.0f, 10.0f);
-
+        pitch = Mathf.Clamp(1.2f + ( (motorRPM - carSetting.idleRPM) / (carSetting.shiftUpRPM - carSetting.idleRPM) ), 1.0f, 10.0f);
+        //Debug.Log(1.2f + ((motorRPM - carSetting.idleRPM) / (carSetting.shiftUpRPM - carSetting.idleRPM)));
         shiftTime = Mathf.MoveTowards(shiftTime, 0.0f, 0.1f);
 
         if (pitch == 1)
@@ -517,6 +544,7 @@ public class CarControl : CarSetValues
             carSounds.lowEngine.pitch = pitch;
 
             pitchDelay = pitch;
+            //Debug.Log("pitchDelay" + pitchDelay);
         }
 
     }

@@ -19,7 +19,11 @@ public class CarSetValues : CarSettings
     protected float torque = 100f;
 
     protected float speed = 0f;
-
+    public float Speed
+    {
+        get { return speed; }
+        set { speed = value; }
+    }
     protected float lastSpeed = -10f;
 
     protected bool shifting = false;
@@ -43,6 +47,11 @@ public class CarSetValues : CarSettings
     protected int currentGear = 0;
     protected bool neutralGear = true;
     protected float motorRPM = 0f;
+    public float MotorRPM
+    {
+        get { return motorRPM; }
+        set { motorRPM = value; }
+    }
     protected bool backward=false;
 
     ///////////////////////////////////////////////////////////////////

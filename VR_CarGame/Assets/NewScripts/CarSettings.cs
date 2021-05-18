@@ -5,6 +5,8 @@ using System;
 
 public class CarSettings : MonoBehaviour
 {
+
+
     // 휠 세팅 //////////////////////////////////////////////////////////////////
 
     [SerializeField]
@@ -76,7 +78,7 @@ public class CarSettings : MonoBehaviour
         public Transform handle;    // 핸들 
         public nHitGround[] hitGround;  //여러가지 지형에 대응
 
-        public List<Transform> camViews;
+        //public List<Transform> camViews;
 
         public float springs = 25000f;  //차량 스프링 계수
         public float dampers = 1500f;   //댐퍼계수: 스프링 신축성 조절
