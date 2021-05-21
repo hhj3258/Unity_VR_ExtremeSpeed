@@ -8,7 +8,7 @@ public class RayClick : MonoBehaviour
     public Image cursorGaugeImage;
     public GameObject mainCam;
     private float gaugeTimer = 0.0f;
-    private float gazeTime = 1.0f;
+    private float gazeTime = 0.5f;
     public DashBoard dashBoard;
 
     void Update()
@@ -20,9 +20,10 @@ public class RayClick : MonoBehaviour
         cursorGaugeImage.fillAmount = gaugeTimer;
 
 
-
-        if (Physics.Raycast(this.transform.position, forward, out hit, 5))
+        int layerMask = 1 << LayerMask.NameToLayer("UI");
+        if (Physics.Raycast(this.transform.position, forward, out hit, 1f, layerMask))
         {
+            Debug.Log(hit.transform.name);
             if (hit.transform.name.Equals("Button"))
             {
                 gaugeTimer += 1.0f / gazeTime * Time.deltaTime;

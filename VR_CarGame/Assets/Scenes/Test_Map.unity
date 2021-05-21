@@ -536,7 +536,7 @@ GameObject:
   - component: {fileID: 491877395}
   - component: {fileID: 491877397}
   m_Layer: 5
-  m_Name: btnLeft
+  m_Name: btnRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1090,7 +1090,7 @@ GameObject:
   - component: {fileID: 1228819781}
   - component: {fileID: 1228819783}
   m_Layer: 5
-  m_Name: btnRight
+  m_Name: btnLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1293,12 +1293,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40bab77b7b9bc384aac34d82d5b96b37, type: 3}
---- !u!1 &1370694514 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1948821525999562, guid: 7b367dccc659de64b8c4d882ca0505fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 99253711}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1519455608
 GameObject:
   m_ObjectHideFlags: 0
@@ -1872,8 +1866,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2616357851442583434}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.05}
-  m_LocalScale: {x: 0.0001, y: 0.0001, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 2.59}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 1}
   m_Children:
   - {fileID: 2616357853210296954}
   m_Father: {fileID: 6339600020935229516}
@@ -1965,7 +1959,7 @@ RectTransform:
   m_GameObject: {fileID: 2616357853210296959}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.8}
   m_Children:
   - {fileID: 2616357852708105732}
   m_Father: {fileID: 2616357851442583446}
@@ -2054,14 +2048,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5665011883968857093}
-  m_LocalRotation: {x: -0, y: -0.9988248, z: 0.048467677, w: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -53.7, y: 1.904841, z: 10.499764}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6339600020935229516}
   m_Father: {fileID: 0}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 5.556, y: -180.00002, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &5665011883968857095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2079,9 +2073,8 @@ MonoBehaviour:
   cars:
   - {fileID: 1154920631}
   - {fileID: 1140774013764884}
-  - {fileID: 1272943200}
   - {fileID: 718551125}
-  - {fileID: 1370694514}
+  - {fileID: 1272943200}
 --- !u!114 &5665011883968857096
 MonoBehaviour:
   m_ObjectHideFlags: 0

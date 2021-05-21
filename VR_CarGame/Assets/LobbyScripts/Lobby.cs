@@ -15,7 +15,7 @@ public class Lobby : MonoBehaviour
 
     float ySpeed = 0;
     public static int cnt;
-    
+    public static string carName;
 
 
     private void Start()
@@ -38,7 +38,7 @@ public class Lobby : MonoBehaviour
         //Debug.Log(LayerMask.NameToLayer("UI")); //5
         if (Physics.Raycast(this.transform.position, forward, out hit, 100f, layerMask))
         {
-            Debug.Log(hit.transform.name);
+            //Debug.Log(hit.transform.name);
             gaugeTimer += 1.0f / gazeTime * Time.deltaTime;
             var hitName = hit.transform.name;
             if (gaugeTimer >= 1f)
@@ -54,6 +54,7 @@ public class Lobby : MonoBehaviour
                     ySpeed = 0f;
                     cars[cnt].transform.localRotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
                     cars[cnt].SetActive(true);
+                    carName = cars[cnt].name;
                 }
 
                 if (hitName.Equals("btnLeft"))
@@ -64,6 +65,7 @@ public class Lobby : MonoBehaviour
                     ySpeed = 0f;
                     cars[cnt].transform.localRotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
                     cars[cnt].SetActive(true);
+                    carName = cars[cnt].name;
                 }
 
                 if (hitName.Equals("btnPlay"))

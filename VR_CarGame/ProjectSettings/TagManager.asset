@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Grass
   - CarSounds
+  - Car
   layers:
   - Default
   - TransparentFX
