@@ -466,9 +466,7 @@ public class VehicleControl : MonoBehaviour
 
     }
 
-
-
-
+    [System.Obsolete]
     void FixedUpdate()
     {
 

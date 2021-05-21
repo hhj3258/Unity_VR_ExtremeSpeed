@@ -18,9 +18,9 @@ public class InputManager : MonoBehaviour
 
         steer = Input.GetAxis("Horizontal");
 
-        accel = Input.GetAxis("Fire2");
+        //accel = Input.GetAxis("Fire2");
         //accel = Input.GetAxis("RTrigger");
-        //accel = Input.GetAxis("Vertical");
+        accel = Input.GetAxis("Vertical");
         //Debug.Log(accel);
         brake = Input.GetButton("Jump");    //Space
     }

@@ -163,6 +163,7 @@ public class CarControl : CarSetValues
         carSounds.switchGear.transform.position = mainCam.transform.position;
     }
 
+    [Obsolete]
     private void FixedUpdate()
     {
         //Debug.Log("speed:"+speed);

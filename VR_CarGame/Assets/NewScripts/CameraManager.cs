@@ -20,7 +20,7 @@ public class CameraManager : MonoBehaviour
     void Update()
     {
         
-        if (Input.GetButtonDown("Fire3"))
+        if (Input.GetButtonDown("Fire3") || Input.GetKeyDown(KeyCode.C))
         {
             camMode = camMode ? false : true;
         }
