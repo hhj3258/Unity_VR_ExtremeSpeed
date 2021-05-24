@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         if(!mycar) mycar = GameObject.FindWithTag("Car");
-        Debug.Log(mycar);
+        //Debug.Log(mycar);
         //Debug.Log(carScript.MotorRPM);
         //thisAngle = (carScript.MotorRPM / 20) - 175;
         //thisAngle = Mathf.Clamp(thisAngle, -180, 90);

@@ -8,6 +8,8 @@ TagManager:
   - Grass
   - CarSounds
   - Car
+  - imgTrack
+  - imgColor
   layers:
   - Default
   - TransparentFX

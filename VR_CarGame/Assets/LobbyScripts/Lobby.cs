@@ -15,15 +15,23 @@ public class Lobby : MonoBehaviour
 
     float ySpeed = 0;
     public static int cnt;
-    public static string carName;
 
+    public Canvas carUI;
+    public Canvas mapUI;
+    public Canvas panels;
+    public Canvas colorUI;
+
+    private bool isMap=false;
+    private string trackName;
+
+    private bool isColor = false;
 
     private void Start()
     {
-        //Instantiate(cars[0],transform.position,Quaternion.identity);
         cnt = 0;
     }
-    // Update is called once per frame
+
+
     void Update()
     {
         ySpeed += 15f * Time.deltaTime;
@@ -54,7 +62,7 @@ public class Lobby : MonoBehaviour
                     ySpeed = 0f;
                     cars[cnt].transform.localRotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
                     cars[cnt].SetActive(true);
-                    carName = cars[cnt].name;
+
                 }
 
                 if (hitName.Equals("btnLeft"))
@@ -65,13 +73,44 @@ public class Lobby : MonoBehaviour
                     ySpeed = 0f;
                     cars[cnt].transform.localRotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
                     cars[cnt].SetActive(true);
-                    carName = cars[cnt].name;
+
                 }
 
                 if (hitName.Equals("btnPlay"))
                 {
+                    SceneManager.LoadScene(trackName);
+                }
 
-                    SceneManager.LoadScene("SampleScene");
+                if (hitName.Equals("btnMap"))
+                {
+                    carUI.gameObject.SetActive(false);
+                    panels.gameObject.SetActive(true);
+                    mapUI.gameObject.SetActive(true);
+
+                    isMap = isMap ? false : true;
+                }
+
+                if (isMap && hit.transform.CompareTag("imgTrack"))
+                {
+                    trackName = hitName;
+
+                    carUI.gameObject.SetActive(true);
+                    panels.gameObject.SetActive(false);
+                    mapUI.gameObject.SetActive(false);
+                }
+
+                if (hitName.Equals("btnColor"))
+                {
+                    carUI.gameObject.SetActive(false);
+                    //panels.gameObject.SetActive(true);
+                    colorUI.gameObject.SetActive(true);
+
+                    isColor = isColor ? false : true;
+                }
+
+                if (isColor && hit.transform.CompareTag("imgColor"))
+                {
+                    cars[cnt].GetComponentInChildren<Renderer>().material.color = Color.white;
                 }
             }
 
@@ -82,4 +121,6 @@ public class Lobby : MonoBehaviour
             gaugeTimer = 0f;
 
     }
+
+
 }

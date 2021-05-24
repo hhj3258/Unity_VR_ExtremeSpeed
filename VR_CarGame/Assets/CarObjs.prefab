@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5185637653386627679
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5185637653386627649}
+  - component: {fileID: 5185637653386627648}
+  m_Layer: 0
+  m_Name: CarObjs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5185637653386627649
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5185637653386627679}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.03, y: 0.06, z: 0.59}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5185637653386627648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5185637653386627679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f39c9dab86e758548a099e5a3ba1c862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  head: {fileID: 5185637653386627679}
+  selectedCar:
+  - {fileID: 4009414551313992345, guid: be9d1c708617589479a6c86c09ee06ae, type: 3}
+  - {fileID: 3887219277263913833, guid: afadbd33c1f283c42a97e3fe98009353, type: 3}
+  - {fileID: 194503341642017852, guid: a182b45346c73d44b961b47fcc837edd, type: 3}
+  - {fileID: 4218498360516047840, guid: dc7e415b09e1d3e488e2bb395f7892c9, type: 3}

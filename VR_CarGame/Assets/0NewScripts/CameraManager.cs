@@ -57,6 +57,7 @@ public class CameraManager : MonoBehaviour
                 transform.LookAt(focus.transform);
                 //Camera.main.fieldOfView = 60f;
             }
+            
             if (!camMode)
             {
                 transform.position = focus.transform.position + focus.transform.TransformDirection(new Vector3(innerCamera.l, innerCamera.h2, -innerCamera.d2));
@@ -64,6 +65,8 @@ public class CameraManager : MonoBehaviour
                 transform.rotation = focus.transform.rotation;
                 //Camera.main.fieldOfView = 80f;
             }
+
+            
         }
 
     }
