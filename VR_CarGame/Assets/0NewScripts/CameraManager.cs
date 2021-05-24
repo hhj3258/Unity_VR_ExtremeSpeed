@@ -29,7 +29,7 @@ public class CameraManager : MonoBehaviour
         public float l;
     }
 
-    bool camMode = true;
+    public static bool camMode = true;
 
     void Start()
     {

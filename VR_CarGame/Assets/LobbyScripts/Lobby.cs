@@ -26,9 +26,18 @@ public class Lobby : MonoBehaviour
 
     private bool isColor = false;
 
+    public static Color selectedColor;
+    public static int inputMenu;
+
+    public Image btnXbox;
+    public Image btnCardBoard;
+
     private void Start()
     {
         cnt = 0;
+        trackName = "Sprint Track";
+        selectedColor = Color.white;
+        inputMenu = 0;
     }
 
 
@@ -97,20 +106,59 @@ public class Lobby : MonoBehaviour
                     carUI.gameObject.SetActive(true);
                     panels.gameObject.SetActive(false);
                     mapUI.gameObject.SetActive(false);
+
+                    isMap = false;
                 }
 
                 if (hitName.Equals("btnColor"))
                 {
                     carUI.gameObject.SetActive(false);
-                    //panels.gameObject.SetActive(true);
                     colorUI.gameObject.SetActive(true);
-
                     isColor = isColor ? false : true;
                 }
 
                 if (isColor && hit.transform.CompareTag("imgColor"))
                 {
-                    cars[cnt].GetComponentInChildren<Renderer>().material.color = Color.white;
+                    selectedColor = hit.transform.GetComponent<Image>().material.color;
+
+                    switch (cnt)
+                    {
+                        case 0:
+                            cars[cnt].transform.Find("body").GetComponent<Renderer>().material.color = selectedColor;
+                            break;
+                        case 1:
+                            cars[cnt].transform.Find("Racing Car 1202").Find("body").GetComponent<Renderer>().material.color = selectedColor;
+                            break;
+                        case 2:
+                            cars[cnt].transform.Find("body").GetComponent<Renderer>().material.color = selectedColor;
+                            cars[cnt].transform.Find("body").Find("left_door_gloss").GetComponent<Renderer>().material.color = selectedColor;
+                            cars[cnt].transform.Find("body").Find("right_door_gloss").GetComponent<Renderer>().material.color = selectedColor;
+                            break;
+                        case 3:
+                            cars[cnt].transform.GetComponent<Renderer>().material.color = selectedColor;
+                            break;
+                    }
+                }
+
+                if(isColor&& hitName.Equals("btnOk"))
+                {
+                    carUI.gameObject.SetActive(true);
+                    colorUI.gameObject.SetActive(false);
+
+                    isColor = false;
+                }
+
+                if (hitName.Equals("btnCardBoard"))
+                {
+                    inputMenu = 1;
+                    btnCardBoard.gameObject.SetActive(false);
+                    btnXbox.gameObject.SetActive(true);
+                }
+                if (hitName.Equals("btnXbox"))
+                {
+                    inputMenu = 0;
+                    btnCardBoard.gameObject.SetActive(true);
+                    btnXbox.gameObject.SetActive(false);
                 }
             }
 

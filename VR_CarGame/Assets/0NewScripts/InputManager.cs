@@ -8,14 +8,19 @@ public class InputManager : MonoBehaviour
     public float steer;
     public bool brake;
 
+    public Camera cam;
+
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R) )
+        if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(0);
         }
 
+        InputCardBoard();
+
+        /*
         steer = Input.GetAxis("Horizontal");
 
         //accel = Input.GetAxis("Fire2");
@@ -23,5 +28,19 @@ public class InputManager : MonoBehaviour
         accel = Input.GetAxis("Vertical");
         //Debug.Log(accel);
         brake = Input.GetButton("Jump");    //Space
+        */
+    }
+
+    void InputCardBoard()
+    {
+        accel = Input.GetAxis("Fire1");
+        steer = Mathf.Clamp(cam.transform.localRotation.z * -1.5f, -1f, 1f);
+        //Debug.Log(cam.transform.localRotation.z);
+
+    }
+
+    void InputXbox()
+    {
+
     }
 }
