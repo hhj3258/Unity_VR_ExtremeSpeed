@@ -8,16 +8,15 @@ public class CarSelector : MonoBehaviour
     public GameObject head;
     public GameObject[] selectedCar;
 
-
-
-    private void Awake()
+    private void Start()
     {
-        
 
         Instantiate(selectedCar[Lobby.cnt], transform.position, transform.rotation).transform.parent = head.transform;
         //head.transform.GetChild(0).Find(selectedCar[Lobby.cnt].name).Find("body").GetComponent<Renderer>().material.color = Lobby.selectedColor;
-        var selectedCarName = head.transform.GetChild(0).Find(selectedCar[Lobby.cnt].name);
+        var selectedCarName = head.transform.GetChild(1).Find(selectedCar[Lobby.cnt].name);
+        //var selectedCarName = gManager.MyCar.transform;
 
+        if(selectedCarName)
         switch (Lobby.cnt)
         {
             case 0:
@@ -39,7 +38,6 @@ public class CarSelector : MonoBehaviour
                 selectedCarName.GetComponent<Renderer>().material.color =
                     Lobby.selectedColor;
                 break;
-
         }
     }
 

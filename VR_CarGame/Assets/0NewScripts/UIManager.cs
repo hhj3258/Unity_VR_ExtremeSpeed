@@ -11,14 +11,14 @@ public class UIManager : MonoBehaviour
     private GameObject mycar;
     float thisAngle = 0f;
     CarControl carScript;
-    // Start is called before the first frame update
+
     void Start()
     {
         mycar = GameObject.FindWithTag("Car");
         carScript = mycar.GetComponent<CarControl>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if(!mycar) mycar = GameObject.FindWithTag("Car");

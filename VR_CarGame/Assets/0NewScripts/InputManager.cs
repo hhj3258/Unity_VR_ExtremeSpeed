@@ -15,20 +15,12 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
-        InputCardBoard();
+        //InputCardBoard();
 
-        /*
-        steer = Input.GetAxis("Horizontal");
-
-        //accel = Input.GetAxis("Fire2");
-        //accel = Input.GetAxis("RTrigger");
-        accel = Input.GetAxis("Vertical");
-        //Debug.Log(accel);
-        brake = Input.GetButton("Jump");    //Space
-        */
+        InputPC();
     }
 
     void InputCardBoard()
@@ -41,6 +33,13 @@ public class InputManager : MonoBehaviour
 
     void InputXbox()
     {
+        accel = Input.GetAxis("RTrigger");
+    }
 
+    void InputPC()
+    {
+        steer = Input.GetAxis("Horizontal");
+        accel = Input.GetAxis("Vertical");
+        brake = Input.GetButton("Jump");    //Space
     }
 }

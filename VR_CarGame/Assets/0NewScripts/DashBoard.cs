@@ -6,12 +6,13 @@ using System;
 
 public class DashBoard : MonoBehaviour
 {
+    [SerializeField] protected DashSettings dashSettings;
 
     public AudioSource[] dashSongs;
     private int songCnt = 0;
 
-    [SerializeField]
-    protected DashSettings dashSettings;
+    private GameManager gManager;
+
 
     [Serializable]
     protected class DashSettings
@@ -21,19 +22,18 @@ public class DashBoard : MonoBehaviour
         public float dashHorizon;
     }
 
-    private GameObject focus;
     private void Start()
     {
-        focus = GameObject.FindGameObjectWithTag("Car");
+        gManager = GameManager.Instance;
     }
 
     private void Update()
     {
-        if(!focus) focus = GameObject.FindGameObjectWithTag("Car");
+        //if(!gManager.MyCar) gManager.MyCar = GameObject.FindGameObjectWithTag("Car");
 
-        transform.position = focus.transform.position + 
-            focus.transform.TransformDirection(new Vector3(dashSettings.dashHorizon, dashSettings.dashHigh, dashSettings.dashDistance));
-        transform.rotation = focus.transform.rotation;
+        transform.position = gManager.MyCar.transform.position +
+            gManager.MyCar.transform.TransformDirection(new Vector3(dashSettings.dashHorizon, dashSettings.dashHigh, dashSettings.dashDistance));
+        transform.rotation = gManager.MyCar.transform.rotation;
     }
 
     public void SongChanger()
