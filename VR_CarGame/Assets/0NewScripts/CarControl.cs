@@ -319,7 +319,7 @@ public class CarControl : CarSetValues
 
                 if (powerShift == 0) { shifmotor = false; }
 
-                powerShift = Mathf.MoveTowards(powerShift, 0.0f, Time.deltaTime * 10.0f);
+                powerShift = Mathf.MoveTowards(powerShift, 0.0f, Time.fixedDeltaTime * 10.0f);
 
 
 
@@ -335,13 +335,13 @@ public class CarControl : CarSetValues
                 }
 
 
-                powerShift = Mathf.MoveTowards(powerShift, 100.0f, Time.deltaTime * 5.0f);
+                powerShift = Mathf.MoveTowards(powerShift, 100.0f, Time.fixedDeltaTime * 5.0f);
                 curTorque = carSetting.power;
 
             }
 
             //바퀴 회전
-            w.rotation = Mathf.Repeat(w.rotation + col.rpm * 360f / 60f * Time.deltaTime, 360f);
+            w.rotation = Mathf.Repeat(w.rotation + col.rpm * 360f / 60f * Time.fixedDeltaTime, 360f);
             w.rotation2 = Mathf.Lerp(w.rotation2, col.steerAngle, 0.1f);
             //x=앞뒤,y=좌우
             w.wheel.localRotation = Quaternion.Euler(w.rotation, w.rotation2, 0f);
@@ -419,7 +419,7 @@ public class CarControl : CarSetValues
                         pc.enableEmission = false;
 
                         Particle[currentWheel].GetComponent<AudioSource>().volume = 
-                            Mathf.Lerp(Particle[currentWheel].GetComponent<AudioSource>().volume, 0, Time.deltaTime * 10.0f);
+                            Mathf.Lerp(Particle[currentWheel].GetComponent<AudioSource>().volume, 0, Time.fixedDeltaTime * 10.0f);
                     }
                 }
 

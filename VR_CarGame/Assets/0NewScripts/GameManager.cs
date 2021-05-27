@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     private GameObject myCar;
     private ErrorReset[] errorReset;
 
+
     public static GameManager Instance
     {
         get
@@ -29,6 +30,8 @@ public class GameManager : MonoBehaviour
     //GameManager 싱글톤 적용
     private void Awake()
     {
+        myCar = GameObject.FindWithTag("Car");
+
         if (_instance == null)
             _instance = this;
 
@@ -38,14 +41,15 @@ public class GameManager : MonoBehaviour
 
         // 아래의 함수를 사용하여 씬이 전환되더라도 선언되었던 인스턴스가 파괴되지 않는다.
         DontDestroyOnLoad(gameObject);
+        
     }
 
 
     private void Start()
     {
-        myCar = GameObject.FindGameObjectWithTag("Car");
-        errorReset = GameObject.FindObjectsOfType<ErrorReset>();
         
+        errorReset = GameObject.FindObjectsOfType<ErrorReset>();
+
     }
 
     public GameObject MyCar
@@ -59,9 +63,14 @@ public class GameManager : MonoBehaviour
         get { return errorReset; }
     }
 
+
     private void Update()
     {
-        
-    }
+        if (!myCar)
+        {
+            myCar = GameObject.FindWithTag("Car");
+        }
 
+        //Debug.Log(myCar.name);
+    }
 }

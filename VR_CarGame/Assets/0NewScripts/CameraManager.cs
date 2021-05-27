@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-    private GameObject focus;
+    //private GameObject focus;
+    private GameManager gManager;
 
     [SerializeField]
     protected OutterCamera outterCamera;
@@ -31,43 +32,49 @@ public class CameraManager : MonoBehaviour
 
     public static bool camMode = true;
 
-    void Start()
+    void Awake()
     {
-        focus = GameObject.FindWithTag("Car");
+        gManager = GameManager.Instance;
+        //focus = GameObject.FindWithTag("Car");
+        //gManager.MyCar = GameObject.FindWithTag("Car");
     }
 
     private void Update()
     {
-        if(!focus)
-            focus = GameObject.FindWithTag("Car");
-
-        if (focus)
+        //Debug.Log(GameObject.FindWithTag("Car").name);
+        //Debug.Log(gManager.MyCar.name);
+        try
         {
+
             if (Input.GetButtonDown("Fire3") || Input.GetKeyDown(KeyCode.C))
             {
                 camMode = camMode ? false : true;
             }
+
+            //바깥 카메라
             if (camMode)
             {
-                transform.position = Vector3.Lerp(
-                    transform.position,
-                    focus.transform.position + focus.transform.TransformDirection(new Vector3(0f, outterCamera.height, -outterCamera.distance)),
-                    outterCamera.dampening * Time.fixedDeltaTime);
-                //this.transform.position = Vector3.Lerp(transform.position, transform.position, Time.deltaTime * dampening);
-                transform.LookAt(focus.transform);
+                transform.position = Vector3.Lerp(transform.position,
+                    gManager.MyCar.transform.position + gManager.MyCar.transform.TransformDirection(new Vector3(0f, outterCamera.height, -outterCamera.distance)),
+                    outterCamera.dampening * Time.deltaTime);
+
+                transform.LookAt(gManager.MyCar.transform);
                 //Camera.main.fieldOfView = 60f;
             }
-            
+
             if (!camMode)
             {
-                transform.position = focus.transform.position + focus.transform.TransformDirection(new Vector3(innerCamera.l, innerCamera.h2, -innerCamera.d2));
+                transform.position = gManager.MyCar.transform.position + gManager.MyCar.transform.TransformDirection(new Vector3(innerCamera.l, innerCamera.h2, -innerCamera.d2));
 
-                transform.rotation = focus.transform.rotation;
+                transform.rotation = gManager.MyCar.transform.rotation;
                 //Camera.main.fieldOfView = 80f;
             }
-
+        }
+        catch(Exception e)
+        {
             
         }
+
 
     }
 
