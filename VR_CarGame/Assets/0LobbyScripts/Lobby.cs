@@ -34,6 +34,7 @@ public class Lobby : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1;
         cnt = 0;
         trackName = "Drift Track";
         selectedColor = Color.white;

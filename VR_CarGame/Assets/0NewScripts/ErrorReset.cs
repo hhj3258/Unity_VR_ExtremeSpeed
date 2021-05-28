@@ -24,7 +24,8 @@ public class ErrorReset : MonoBehaviour
     {
         if (other.transform.CompareTag("colCar"))
         {
-            if (Input.GetKeyDown(KeyCode.T))
+            //Debug.Log(RayClick.gaugeTimer);
+            if (RayClick.isReset || Input.GetKey(KeyCode.T))
             {
                 //Debug.Log("chk");
 

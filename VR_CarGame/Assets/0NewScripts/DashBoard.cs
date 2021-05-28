@@ -7,41 +7,40 @@ using TMPro;
 
 public class DashBoard : MonoBehaviour
 {
-    [SerializeField] private DashSettings dashSettings;
+    //[SerializeField] private DashSettings dashSettings;
     [SerializeField] private TextMeshProUGUI[] txtMusic;
 
     [SerializeField] private AudioSource[] dashSongs;
     private int songCnt = 0;
 
-    private GameManager gManager;
 
     //[SerializeField] private Vector3 myPos;
 
-    [Serializable]
-    private class DashSettings
-    {
-        public float dashHigh;
-        public float dashDistance;
-        public float dashHorizon;
+    //[Serializable]
+    //private class DashSettings
+    //{
+    //    public float dashHigh;
+    //    public float dashDistance;
+    //    public float dashHorizon;
 
-        public float rotX;
-        public Vector3 dashScale;
-    }
+    //    public float rotX;
+    //    public Vector3 dashScale;
+    //}
 
 
     private void Start()
     {
-        gManager = GameManager.Instance;
+
 
     }
 
     private void Update()
     {
-        transform.position = gManager.MyCar.transform.position + gManager.MyCar.transform.TransformDirection(new Vector3(dashSettings.dashHorizon, dashSettings.dashHigh, dashSettings.dashDistance));
+        //transform.position = gManager.MyCar.transform.position + gManager.MyCar.transform.TransformDirection(new Vector3(dashSettings.dashHorizon, dashSettings.dashHigh, dashSettings.dashDistance));
 
-        transform.localScale = dashSettings.dashScale;
+        //transform.localScale = dashSettings.dashScale;
 
-        transform.rotation = gManager.MyCar.transform.rotation;
+        //transform.rotation = gManager.MyCar.transform.rotation;
 
     }
 

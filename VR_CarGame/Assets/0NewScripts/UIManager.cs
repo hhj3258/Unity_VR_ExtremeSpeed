@@ -12,16 +12,20 @@ public class UIManager : MonoBehaviour
     float thisAngle = 0f;
     CarControl carScript;
 
+    private GameManager gManager;
+
     void Start()
     {
-        mycar = GameObject.FindWithTag("Car");
+        gManager = GameManager.Instance;
+
+        mycar = gManager.MyCar;
         carScript = mycar.GetComponent<CarControl>();
     }
 
 
     void Update()
     {
-        if(!mycar) mycar = GameObject.FindWithTag("Car");
+        if(!mycar) gManager.MyCar = GameObject.FindWithTag("Car");
         //Debug.Log(mycar);
         //Debug.Log(carScript.MotorRPM);
         //thisAngle = (carScript.MotorRPM / 20) - 175;

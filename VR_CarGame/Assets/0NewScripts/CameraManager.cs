@@ -52,11 +52,21 @@ public class CameraManager : MonoBehaviour
             }
 
             //바깥 카메라
-            if (camMode)
+            if (camMode && Time.timeScale==1)
             {
                 transform.position = Vector3.Lerp(transform.position,
                     gManager.MyCar.transform.position + gManager.MyCar.transform.TransformDirection(new Vector3(0f, outterCamera.height, -outterCamera.distance)),
                     outterCamera.dampening * Time.deltaTime);
+
+                transform.LookAt(gManager.MyCar.transform);
+                //Camera.main.fieldOfView = 60f;
+            }
+
+            if (camMode && Time.timeScale == 0)
+            {
+                transform.position = Vector3.Lerp(transform.position,
+                    gManager.MyCar.transform.position + gManager.MyCar.transform.TransformDirection(new Vector3(0f, outterCamera.height, -outterCamera.distance)),
+                    outterCamera.dampening);
 
                 transform.LookAt(gManager.MyCar.transform);
                 //Camera.main.fieldOfView = 60f;

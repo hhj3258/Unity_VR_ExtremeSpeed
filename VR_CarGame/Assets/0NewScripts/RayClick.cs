@@ -11,18 +11,21 @@ public class RayClick : MonoBehaviour
     [SerializeField] private GameObject mainCam;
     [SerializeField] private DashBoard dashBoard;
     [SerializeField] private Canvas menus;
-    [SerializeField] private Canvas pauseMenu;
+    [SerializeField] private Canvas[] pauseMenu;
+
     [SerializeField] private GameObject pausePanel;
 
-    private float gaugeTimer = 0.0f;
+    public static float gaugeTimer = 0.0f;
     private float gazeTime = 1f;
+
+    public static bool isReset = false;
 
     RaycastHit hit;
 
     void Update()
     {
 
-        
+
         Vector3 forward = mainCam.transform.TransformDirection(Vector3.forward);
         Debug.DrawRay(this.transform.position, forward, Color.green);
         cursorGaugeImage.fillAmount = gaugeTimer;
@@ -31,70 +34,88 @@ public class RayClick : MonoBehaviour
         int layerMask = 1 << LayerMask.NameToLayer("UI");
         if (Physics.Raycast(this.transform.position, forward, out hit, 10f, layerMask))
         {
-            Debug.Log(hit.transform.name);
-            if (hit.transform.name.Equals("btnMusic"))
+            Debug.Log(hit.collider.transform.name);
+            if (hit.collider.transform.name.Equals("btnMusic"))
             {
-                gaugeTimer += 1.0f / gazeTime * Time.deltaTime;
+                gaugeTimer += 1.0f / gazeTime * Time.unscaledDeltaTime;
+
+                if (gaugeTimer >= 1.0f)
+                {
+                    dashBoard.SongChanger();
+                    gaugeTimer = 0.0f;
+                }
             }
 
-            if (gaugeTimer >= 1.0f)
+            if (hit.collider.transform.name.Equals("btnHome") ||
+                hit.collider.transform.name.Equals("btnCamera") ||
+                hit.collider.transform.name.Equals("btnPause") ||
+                hit.collider.transform.name.Equals("btnRESUME") ||
+                hit.collider.transform.name.Equals("btnLOBBY")
+                )
             {
-                dashBoard.SongChanger();
-                gaugeTimer = 0.0f;
+                gaugeTimer += 1.0f / gazeTime * Time.unscaledDeltaTime;
             }
 
+            //
 
-        }
-        else if (Physics.Raycast(this.transform.position, forward, out hit, 100f))
-        {
-            Debug.Log(hit.transform.name);
-            Debug.Log(Time.deltaTime);
-            if (hit.transform.name.Equals("btnHome") || 
-                hit.transform.name.Equals("btnCamera") || 
-                hit.transform.name.Equals("btnPause") ||
-                hit.transform.name.Equals("btnRESUME") ||
-                hit.transform.name.Equals("btnLOBBY"))
+            if (hit.collider.transform.name.Equals("btnReset"))
             {
-                gaugeTimer += 1.0f / gazeTime * Time.deltaTime;
+                gaugeTimer += 1.0f / gazeTime * Time.unscaledDeltaTime;
             }
 
 
             if (gaugeTimer >= 1f)
             {
-                if (hit.transform.name.Equals("btnHome"))
-                    SceneManager.LoadScene(0);
 
-                if (hit.transform.name.Equals("btnCamera"))
+                if (hit.collider.transform.name.Equals("btnCamera"))
                 {
                     CameraManager.camMode = CameraManager.camMode ? false : true;
                 }
 
-                if (hit.transform.name.Equals("btnPause"))
+                if (hit.collider.transform.name.Equals("btnPause"))
                 {
-                    pauseMenu.transform.position = new Vector3(0f, 1.8f, 1.5f);
                     Time.timeScale = 0;
-                    pauseMenu.gameObject.SetActive(true);
+                    pauseMenu[0].gameObject.SetActive(true);
+                    pauseMenu[1].gameObject.SetActive(true);
                     pausePanel.gameObject.SetActive(true);
                 }
 
-                if (hit.transform.name.Equals("btnRESUME"))
+                if (hit.collider.transform.name.Equals("btnRESUME"))
                 {
                     Time.timeScale = 1;
-                    pauseMenu.gameObject.SetActive(false);
+                    pauseMenu[0].gameObject.SetActive(false);
+                    pauseMenu[1].gameObject.SetActive(false);
                     pausePanel.gameObject.SetActive(false);
                 }
 
-                if (hit.transform.name.Equals("btnLOBBY"))
+                if (hit.collider.transform.name.Equals("btnLOBBY"))
                 {
                     SceneManager.LoadScene(0);
                 }
 
+                if (hit.collider.transform.name.Equals("btnReset"))
+                {
+                    isReset = true;
+                }
+
+
                 gaugeTimer = 0f;
-
+                
             }
-
         }
         else
+        {
+            isReset = false;
             gaugeTimer = 0f;
-    }
+        }
+            
+    }//void Update()
+
+    //IEnumerator PauseTime()
+    //{
+    //    Time.timeScale = 1;
+    //    pauseMenu.gameObject.SetActive(false);
+    //    pausePanel.gameObject.SetActive(false);
+    //}
+
 }

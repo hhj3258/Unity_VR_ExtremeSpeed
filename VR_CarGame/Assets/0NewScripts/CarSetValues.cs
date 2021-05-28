@@ -29,6 +29,7 @@ public class CarSetValues : CarSettings
     protected bool shifting = false;
 
     //22개
+    //토크 효율 그래프
     protected float[] efficiencyTable 
         = { 0.6f, 0.65f, 0.7f, 0.75f, 0.8f, 0.85f, 
             0.9f, 1.0f, 1.0f, 0.95f, 0.80f, 0.70f, 
@@ -47,12 +48,14 @@ public class CarSetValues : CarSettings
     protected int currentGear = 0;
     protected bool neutralGear = true;
     protected float motorRPM = 0f;
+
+    protected bool backward=false;
+
     public float MotorRPM
     {
         get { return motorRPM; }
         set { motorRPM = value; }
     }
-    protected bool backward=false;
 
     ///////////////////////////////////////////////////////////////////
 

@@ -168,7 +168,7 @@ public class CarControl : CarSetValues
     {
         //Debug.Log("speed:"+speed);
         speed = myRigidbody.velocity.magnitude * 2.7f;
-        
+
         if(speed < lastSpeed -10&& slip < 10)
         {
             slip = lastSpeed / 15f;
@@ -341,8 +341,9 @@ public class CarControl : CarSetValues
             }
 
             //바퀴 회전
-            w.rotation = Mathf.Repeat(w.rotation + col.rpm * 360f / 60f * Time.fixedDeltaTime, 360f);
-            w.rotation2 = Mathf.Lerp(w.rotation2, col.steerAngle, 0.1f);
+            //max=360, 360도를 넘어갈 때마다 반복적으로
+            w.rotation = Mathf.Repeat(w.rotation + col.rpm * 360f / 60f * Time.fixedDeltaTime, 360f);   
+            w.rotation2 = Mathf.Lerp(w.rotation2, col.steerAngle, 0.1f);    //자연스러운 좌우 바퀴 회전
             //x=앞뒤,y=좌우
             w.wheel.localRotation = Quaternion.Euler(w.rotation, w.rotation2, 0f);
 
@@ -380,11 +381,12 @@ public class CarControl : CarSetValues
                             {
                                 Particle[currentWheel].GetComponent<AudioSource>().clip = carSetting.hitGround[i].brakeSound;
                             }
-                            else if(Particle[currentWheel].GetComponent<AudioSource>().clip != 
-                                carSetting.hitGround[i].groundSound && !Particle[currentWheel].GetComponent<AudioSource>().isPlaying)
-                            {
-                                Particle[currentWheel].GetComponent<AudioSource>().clip = carSetting.hitGround[i].groundSound;
-                            }
+                            //else if(Particle[currentWheel].GetComponent<AudioSource>().clip != 
+                            //    carSetting.hitGround[i].groundSound && !Particle[currentWheel].GetComponent<AudioSource>().isPlaying)
+                            //{
+                            //    Particle[currentWheel].GetComponent<AudioSource>().clip = carSetting.hitGround[i].groundSound;
+                            //}
+
 
                             Particle[currentWheel].GetComponent<ParticleSystem>().startColor = carSetting.hitGround[i].brakeColor;
                         }
@@ -514,14 +516,15 @@ public class CarControl : CarSetValues
 
 
         pitch = Mathf.Clamp(1.2f + ( (motorRPM - carSetting.idleRPM) / (carSetting.shiftUpRPM - carSetting.idleRPM) ), 1.0f, 10.0f);
-        //Debug.Log(1.2f + ((motorRPM - carSetting.idleRPM) / (carSetting.shiftUpRPM - carSetting.idleRPM)));
+        //Debug.Log("pitch: "+pitch);
         shiftTime = Mathf.MoveTowards(shiftTime, 0.0f, 0.1f);
-
-        if (pitch == 1)
+        //Debug.Log("shiftTime: " + shiftTime);
+        if (pitch == 1)     //rpm=0, speed=0
         {
-            carSounds.idleEngine.volume = Mathf.Lerp(carSounds.idleEngine.volume, 1.0f, 0.1f);
+            
+            carSounds.idleEngine.volume = Mathf.Lerp(carSounds.idleEngine.volume, 1.0f, 0.1f);      //idle엔진음을 최대로
             carSounds.lowEngine.volume = Mathf.Lerp(carSounds.lowEngine.volume, 0.5f, 0.1f);
-            carSounds.highEngine.volume = Mathf.Lerp(carSounds.highEngine.volume, 0.0f, 0.1f);
+            carSounds.highEngine.volume = Mathf.Lerp(carSounds.highEngine.volume, 0.0f, 0.1f);      //high 엔진음은 0
 
         }
         else
@@ -530,6 +533,7 @@ public class CarControl : CarSetValues
             carSounds.idleEngine.volume = Mathf.Lerp(carSounds.idleEngine.volume, 1.8f - pitch, 0.1f);
 
 
+            //accel이 0보다 크고 shiftTime(기어변속)=0 일 때 lowEngine은 점차 하락, highEngine은 점차 상승
             if ((pitch > pitchDelay || accel > 0) && shiftTime == 0.0f)
             {
                 carSounds.lowEngine.volume = Mathf.Lerp(carSounds.lowEngine.volume, 0.0f, 0.2f);
@@ -548,5 +552,17 @@ public class CarControl : CarSetValues
             //Debug.Log("pitchDelay" + pitchDelay);
         }
 
+    }
+
+    public float LimitForwardSpeed
+    {
+        get { return carSetting.limitForwardSpeed; }
+        set { carSetting.limitForwardSpeed = value; }
+    }
+
+    public float LimitBackwardSpeed
+    {
+        get { return carSetting.limitBackwardSpeed; }
+        set { carSetting.limitBackwardSpeed = value; }
     }
 }
