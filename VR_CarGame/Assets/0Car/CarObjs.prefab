@@ -45,7 +45,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   head: {fileID: 5185637653386627679}
   selectedCar:
-  - {fileID: 3627533533639624938, guid: 8c44c90113f1f3e49a90d8e02fc59f6a, type: 3}
+  - {fileID: 8197628539610349784, guid: ad485ea6ed11f3d4c803832dc2af7771, type: 3}
   - {fileID: 3887219277263913833, guid: afadbd33c1f283c42a97e3fe98009353, type: 3}
   - {fileID: 194503341642017852, guid: a182b45346c73d44b961b47fcc837edd, type: 3}
   - {fileID: 4218498360516047840, guid: dc7e415b09e1d3e488e2bb395f7892c9, type: 3}
+  carMaterial: {fileID: 2100000, guid: d796cd947be0fc341aeee42ba0f62719, type: 2}

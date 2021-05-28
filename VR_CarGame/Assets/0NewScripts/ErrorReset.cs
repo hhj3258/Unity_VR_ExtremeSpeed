@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class ErrorReset : MonoBehaviour
 {
-    [SerializeField] private GameObject carobj;
+
     private bool isEnter = false;
+
+    private Vector3 myPos;
+    private Quaternion myRot;
+
+    private beginGame BeginGame;
+    [SerializeField] private FindStarting findStarting;
+
 
     public bool IsEnter
     {
@@ -13,36 +20,41 @@ public class ErrorReset : MonoBehaviour
         set { isEnter = value; }
     }
 
-    private GameManager gManager;
-    private void Start()
+    public Vector3 MyPos
     {
-        gManager = GameManager.Instance;
+        get { return myPos; }
+        set { myPos = value; }
+    }
+
+    public Quaternion MyRot
+    {
+        get { return myRot; }
+        set { myRot = value; }
     }
 
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.transform.CompareTag("colCar"))
-        {
-            //Debug.Log(RayClick.gaugeTimer);
-            if (RayClick.isReset || Input.GetKey(KeyCode.T))
-            {
-                //Debug.Log("chk");
-
-                gManager.MyCar.transform.position = transform.position;
-                gManager.MyCar.transform.rotation = transform.rotation;
-                gManager.MyCar.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
-            }
-        }
-    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.CompareTag("colCar"))
         {
-            isEnter = true;
-            Debug.Log(transform.name);
+            if (!isEnter)
+            {
+                isEnter = true;
+                findStarting.BeginGame.SectionList.Add(transform.GetComponent<ErrorReset>());
+                //Debug.Log("BeginGame.SectionList.Count: " + findStarting.BeginGame.SectionList.Count);
+
+                myPos = transform.position;
+                myRot = transform.rotation;
+            }
+
+            //Debug.Log(transform.name);
+
+
+
+            //Debug.Log(myPos);
+            //Debug.Log(myRot);
         }
-            
+
     }
 }

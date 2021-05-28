@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class Lobby : MonoBehaviour
 {
+    private GameManager gManager;
+
     public Image cursorGaugeImage;
     public GameObject mainCam;
     private float gaugeTimer = 0.0f;
@@ -32,12 +34,17 @@ public class Lobby : MonoBehaviour
     public Image btnXbox;
     public Image btnCardBoard;
 
+    
+
     private void Start()
     {
+        gManager = GameManager.Instance;
+        
         Time.timeScale = 1;
         cnt = 0;
         trackName = "Drift Track";
         selectedColor = Color.white;
+        gManager.carMaterial[0].color = selectedColor;
         inputMenu = 0;
     }
 

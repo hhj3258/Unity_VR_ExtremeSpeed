@@ -21,14 +21,14 @@ public class InputManager : MonoBehaviour
         //InputCardBoard();
 
         InputPC();
+        //InputCardBoard();
     }
 
     void InputCardBoard()
     {
         accel = Input.GetAxis("Fire1");
-        steer = Mathf.Clamp(cam.transform.localRotation.z * -1.5f, -1f, 1f);
+        steer = Mathf.Clamp(cam.transform.localRotation.z * -2.5f, -1f, 1f);    //2.5배 더 잘 꺾이도록
         //Debug.Log(cam.transform.localRotation.z);
-
     }
 
     void InputXbox()

@@ -8,8 +8,9 @@ public class GameManager : MonoBehaviour
     static GameManager _instance;
     
     private GameObject myCar;
-    private ErrorReset[] errorReset;
+    public ErrorReset[] errorReset;
 
+    public Material[] carMaterial;
 
     public static GameManager Instance
     {
@@ -44,13 +45,6 @@ public class GameManager : MonoBehaviour
         
     }
 
-
-    private void Start()
-    {
-        
-        errorReset = GameObject.FindObjectsOfType<ErrorReset>();
-
-    }
 
     public GameObject MyCar
     {

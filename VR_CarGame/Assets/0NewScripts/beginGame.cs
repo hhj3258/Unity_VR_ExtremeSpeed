@@ -5,38 +5,112 @@ using TMPro;
 
 public class beginGame : MonoBehaviour
 {
+    public TextMeshProUGUI txtTest;
+
     [SerializeField] private TextMeshProUGUI txtCntDown;
     [SerializeField] private TextMeshProUGUI txtGoal;
+    [SerializeField] private GameObject btnLobby;
 
-    [SerializeField] private triggerChk colStart;
-    [SerializeField] private triggerChk colGoal;
+    [SerializeField] private GameObject colStart;
+    private triggerChk triggerChkStart;
+    [SerializeField] private GameObject colGoal;
+    private triggerChk triggerChkGoal;
     [SerializeField] private AudioSource cntSound;
     
+
     private GameManager gManager;
 
     private CarControl carControl;
+
+    [SerializeField] private TextMeshProUGUI txtLapTime;
+    private float second = 0;
+    private float curTime = 0;
+    private float minute = 0;
+    private string resultTime;
+
+    private Vector3 resetPos;
+    private Quaternion resetRot;
+
+    private List<ErrorReset> sectionList=new List<ErrorReset>();
+    public List<ErrorReset> SectionList
+    {
+        get { return sectionList; }
+        set { sectionList = value; }
+    }
+
 
     int cnt = 3;    //시작 시 카운트 다운 변수
     int maxEnter = 0;   //트랙의 구간 통과 시 증가
 
     void Awake()
     {
+        //Debug.Log("awake");
+        minute = 0;
+        curTime = 0;
+        second = 0;
+        cnt = 3;
+
         gManager = GameManager.Instance;
-        
+
         InvokeRepeating("CountDown", 1f, 1f);   //카운트 다운 인보크 1초에 1번 반복
         cntSound.Play();
+
+        resultTime = string.Format("{0:00} : {1:00}", minute, second);
+
+        colStart = GameObject.Find("colStart");
+        triggerChkStart = colStart.GetComponent<triggerChk>();
+
+        colGoal = GameObject.Find("colGoal");
+        triggerChkGoal = colGoal.GetComponent<triggerChk>();
+        colGoal.gameObject.SetActive(false);
+        
+        gManager.errorReset = FindObjectsOfType<ErrorReset>();
+
     }
 
 
     // Update is called once per frame
     void Update()
     {
+        if (RayClick.isReset || Input.GetKey(KeyCode.T))
+        {
+            //Debug.Log("sectionList.Count: " + sectionList.Count);
 
+            if (sectionList.Count == 0)
+            {
+                
+            }
+            else
+            {
+                resetPos = SectionList[sectionList.Count - 1].MyPos;
+                resetRot = SectionList[sectionList.Count - 1].MyRot;
+            }
+
+
+            //Debug.Log("name: "+ SectionList[sectionList.Count - 1].name);
+            //Debug.Log("resetPos: " + resetPos);
+            //Debug.Log("resetRot: " + resetRot);
+
+            gManager.MyCar.transform.position = resetPos;
+            gManager.MyCar.transform.rotation = resetRot;
+            gManager.MyCar.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
+        }
+
+
+        txtTest.text = maxEnter.ToString();
+
+        //Debug.Log(colGoal);
+        if (cnt <= 0 && !triggerChkGoal.IsEnter)
+            LapTimer();
+        else
+            txtLapTime.text = resultTime;
+
+        //카운트 다운이 끝나기 전까지 차량 속도 0
         if (gManager.MyCar)
         {
             if (cnt > 0)
             {
-                Debug.Log(gManager.MyCar.name);
+                //Debug.Log(gManager.MyCar.name);
                 gManager.MyCar.GetComponent<Rigidbody>().velocity =
                     new Vector3(0, gManager.MyCar.GetComponent<Rigidbody>().velocity.y, 0);
             }
@@ -44,26 +118,24 @@ public class beginGame : MonoBehaviour
 
         txtCntDown.text = cnt.ToString();
 
-        //카운트 다운이 끝나기 전까지 차량 속도 0
-        
-
         if (cnt == 0)
         {
             txtCntDown.gameObject.SetActive(false);
         }
 
         //colGoal 오브젝트는 [gManager.ErrorResets.Length/2] 으로 인해 트랙 중반 쯤 깨어남
-        if (colStart.IsEnter && colGoal.IsEnter)
+        if (triggerChkStart.IsEnter && triggerChkGoal.IsEnter)
         {
             EndGame();
-            
+
             //Debug.Log("maxEnter: " + maxEnter);
             //Debug.Log("gManager.ErrorResets.Length: " + gManager.ErrorResets.Length);
         }
 
-        if (gManager.ErrorResets[gManager.ErrorResets.Length/2].IsEnter &&
-            !gManager.ErrorResets[gManager.ErrorResets.Length / 2+1].IsEnter)
+        if (gManager.ErrorResets[gManager.ErrorResets.Length / 2].IsEnter &&
+            !gManager.ErrorResets[gManager.ErrorResets.Length / 2 + 1].IsEnter)
         {
+            Debug.Log("colgoal활성화");
             colGoal.gameObject.SetActive(true);
             //Debug.Log("colGoal 셋엑티브");
         }
@@ -78,33 +150,17 @@ public class beginGame : MonoBehaviour
     {
         carControl = gManager.MyCar.GetComponent<CarControl>();
 
-        if (maxEnter < gManager.ErrorResets.Length)
-        {
-            for (int i = 0; i < gManager.ErrorResets.Length; i++)
-            {
-                if (gManager.ErrorResets[i].IsEnter == false)
-                {
-                    maxEnter = 0;
-                    break;
-                }
-
-                maxEnter++;
-            }
-        }
-
         //완주
-        if (maxEnter == gManager.ErrorResets.Length)
+        if (SectionList.Count == gManager.ErrorResets.Length)
         {
             txtGoal.gameObject.SetActive(true);
-            //gManager.MyCar.GetComponent<Rigidbody>().velocity =
-            //    new Vector3(Mathf.Lerp(gManager.MyCar.GetComponent<Rigidbody>().velocity.x,0f, 0.1f * Time.deltaTime), 
-            //    gManager.MyCar.GetComponent<Rigidbody>().velocity.y,
-            //    Mathf.Lerp(gManager.MyCar.GetComponent<Rigidbody>().velocity.z, 0f, 0.1f * Time.deltaTime));
+            btnLobby.gameObject.SetActive(true);
 
-            carControl.LimitForwardSpeed = Mathf.Lerp(carControl.LimitForwardSpeed, 0f, Time.deltaTime);
-            carControl.LimitBackwardSpeed = Mathf.Lerp(carControl.LimitBackwardSpeed, 0f, Time.deltaTime);
+            carControl.LimitForwardSpeed = Mathf.Lerp(carControl.LimitForwardSpeed, 0f, 10f * Time.deltaTime);
+            carControl.LimitBackwardSpeed = Mathf.Lerp(carControl.LimitBackwardSpeed, 0f, 10f * Time.deltaTime);
 
         }
+
     }
 
 
@@ -116,5 +172,25 @@ public class beginGame : MonoBehaviour
         cnt--;
     }
 
-    
+    void LapTimer()
+    {
+        //Debug.Log("Time.timeSinceLevelLoad: " + Time.timeSinceLevelLoad);
+        second = (int)(Time.timeSinceLevelLoad - curTime - 3f);
+        
+        if (second > 59)
+        {
+            curTime = Time.timeSinceLevelLoad;
+            second = 0;
+            minute++;
+
+            if (minute > 59)
+            {
+                minute = 0;
+            }
+        }
+
+        resultTime = string.Format("{0:00} : {1:00}", minute, second);
+        txtLapTime.text = resultTime;
+
+    }
 }
