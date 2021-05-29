@@ -20,7 +20,13 @@ public class InputManager : MonoBehaviour
 
         //InputCardBoard();
 
-        InputPC();
+        Debug.Log(Lobby.controller);
+        if (Lobby.controller)
+            InputPC();
+        else
+            InputCardBoard();
+
+
         //InputCardBoard();
     }
 

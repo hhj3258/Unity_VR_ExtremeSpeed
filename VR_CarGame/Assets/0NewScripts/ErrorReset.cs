@@ -10,7 +10,7 @@ public class ErrorReset : MonoBehaviour
     private Vector3 myPos;
     private Quaternion myRot;
 
-    private beginGame BeginGame;
+
     [SerializeField] private FindStarting findStarting;
 
 
@@ -41,6 +41,11 @@ public class ErrorReset : MonoBehaviour
             if (!isEnter)
             {
                 isEnter = true;
+
+                if(!findStarting.BeginGame)
+                    findStarting.BeginGame= FindObjectOfType<beginGame>();
+
+
                 findStarting.BeginGame.SectionList.Add(transform.GetComponent<ErrorReset>());
                 //Debug.Log("BeginGame.SectionList.Count: " + findStarting.BeginGame.SectionList.Count);
 

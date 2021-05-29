@@ -14,26 +14,6 @@ public class DashBoard : MonoBehaviour
     private int songCnt = 0;
 
 
-    //[SerializeField] private Vector3 myPos;
-
-    //[Serializable]
-    //private class DashSettings
-    //{
-    //    public float dashHigh;
-    //    public float dashDistance;
-    //    public float dashHorizon;
-
-    //    public float rotX;
-    //    public Vector3 dashScale;
-    //}
-
-
-    private void Start()
-    {
-
-
-    }
-
     private void Update()
     {
         //transform.position = gManager.MyCar.transform.position + gManager.MyCar.transform.TransformDirection(new Vector3(dashSettings.dashHorizon, dashSettings.dashHigh, dashSettings.dashDistance));

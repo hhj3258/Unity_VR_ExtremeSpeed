@@ -10,7 +10,6 @@ public class RayClick : MonoBehaviour
     [SerializeField] private Image cursorGaugeImage;
     [SerializeField] private GameObject mainCam;
     [SerializeField] private DashBoard dashBoard;
-    [SerializeField] private Canvas menus;
     [SerializeField] private Canvas[] pauseMenu;
 
     [SerializeField] private GameObject pausePanel;

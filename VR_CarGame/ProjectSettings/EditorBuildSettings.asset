@@ -11,13 +11,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
+  - enabled: 0
     path: Assets/0SceneTracks/Sprint Track.unity
     guid: 46478303f7c601e4e8584cb7f8d31d7f
   - enabled: 1
     path: Assets/0SceneTracks/Drift Track.unity
     guid: e82a0c7cf6aa6504daa551b17979d57e
-  - enabled: 1
+  - enabled: 0
     path: Assets/0SceneTracks/Mountain.unity
     guid: 19333f7b4eb3259429d8674904f1a3b5
   - enabled: 1

@@ -34,6 +34,7 @@ public class Lobby : MonoBehaviour
     public Image btnXbox;
     public Image btnCardBoard;
 
+    public static bool controller = true;
     
 
     private void Start()
@@ -161,12 +162,16 @@ public class Lobby : MonoBehaviour
                     inputMenu = 1;
                     btnCardBoard.gameObject.SetActive(false);
                     btnXbox.gameObject.SetActive(true);
+
+                    controller = true;
                 }
                 if (hitName.Equals("btnXbox"))
                 {
                     inputMenu = 0;
                     btnCardBoard.gameObject.SetActive(true);
                     btnXbox.gameObject.SetActive(false);
+
+                    controller = false;
                 }
             }
 
