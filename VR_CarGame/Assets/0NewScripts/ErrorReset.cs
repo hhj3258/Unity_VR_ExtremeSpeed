@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class ErrorReset : MonoBehaviour
 {
-
     private bool isEnter = false;
 
     private Vector3 myPos;
     private Quaternion myRot;
 
-
     [SerializeField] private FindStarting findStarting;
-
 
     public bool IsEnter
     {
@@ -31,8 +28,6 @@ public class ErrorReset : MonoBehaviour
         get { return myRot; }
         set { myRot = value; }
     }
-
-
 
     private void OnTriggerEnter(Collider other)
     {
@@ -53,13 +48,9 @@ public class ErrorReset : MonoBehaviour
                 myRot = transform.rotation;
             }
 
-            Debug.Log(transform.name);
-            Debug.Log(other.transform.name);
+            //Debug.Log(transform.name);
+            //Debug.Log(other.transform.name);
 
-
-
-            //Debug.Log(myPos);
-            //Debug.Log(myRot);
         }
 
     }

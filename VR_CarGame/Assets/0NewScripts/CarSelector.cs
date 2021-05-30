@@ -7,12 +7,10 @@ public class CarSelector : MonoBehaviour
 {
     public GameObject head;
     public GameObject[] selectedCar;
-    GameObject createdCar;
-
 
     private void Start()
     {
-        Instantiate(createdCar = selectedCar[Lobby.cnt], transform.position, transform.rotation).transform.parent = head.transform;
+        Instantiate(selectedCar[Lobby.cnt], transform.position, transform.rotation).transform.parent = head.transform;
     }
 
 }

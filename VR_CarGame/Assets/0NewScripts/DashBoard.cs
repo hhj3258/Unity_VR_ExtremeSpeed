@@ -13,18 +13,6 @@ public class DashBoard : MonoBehaviour
     [SerializeField] private AudioSource[] dashSongs;
     private int songCnt = 0;
 
-
-    private void Update()
-    {
-        //transform.position = gManager.MyCar.transform.position + gManager.MyCar.transform.TransformDirection(new Vector3(dashSettings.dashHorizon, dashSettings.dashHigh, dashSettings.dashDistance));
-
-        //transform.localScale = dashSettings.dashScale;
-
-        //transform.rotation = gManager.MyCar.transform.rotation;
-
-    }
-
-
     public void SongChanger()
     {
 

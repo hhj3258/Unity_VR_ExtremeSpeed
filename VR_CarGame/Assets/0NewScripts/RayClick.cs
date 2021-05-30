@@ -55,8 +55,6 @@ public class RayClick : MonoBehaviour
                 gaugeTimer += 1.0f / gazeTime * Time.unscaledDeltaTime;
             }
 
-            //
-
             if (hit.collider.transform.name.Equals("btnReset"))
             {
                 gaugeTimer += 1.0f / gazeTime * Time.unscaledDeltaTime;
@@ -109,12 +107,5 @@ public class RayClick : MonoBehaviour
         }
             
     }//void Update()
-
-    //IEnumerator PauseTime()
-    //{
-    //    Time.timeScale = 1;
-    //    pauseMenu.gameObject.SetActive(false);
-    //    pausePanel.gameObject.SetActive(false);
-    //}
 
 }

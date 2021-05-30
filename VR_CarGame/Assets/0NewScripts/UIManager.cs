@@ -30,7 +30,6 @@ public class UIManager : MonoBehaviour
         
     }
 
-
     void Update()
     {
         if (!mycar)
@@ -43,13 +42,7 @@ public class UIManager : MonoBehaviour
         if(mycar && !carScript)
             carScript = mycar.GetComponent<CarControl>();
 
-        //Debug.Log(mycar);
-        //Debug.Log(carScript.MotorRPM);
-        //thisAngle = (carScript.MotorRPM / 20) - 175;
-        //thisAngle = Mathf.Clamp(thisAngle, -180, 90);
-
         speedText.text = ((int)carScript.Speed).ToString();
-
 
         thisAngle = (carScript.MotorRPM / 25);
         //Debug.Log(thisAngle);

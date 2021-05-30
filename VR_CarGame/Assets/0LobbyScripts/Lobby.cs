@@ -87,7 +87,6 @@ public class Lobby : MonoBehaviour
                     ySpeed = 0f;
                     cars[cnt].transform.localRotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
                     cars[cnt].SetActive(true);
-
                 }
 
                 if (hitName.Equals("btnLeft"))
@@ -98,7 +97,6 @@ public class Lobby : MonoBehaviour
                     ySpeed = 0f;
                     cars[cnt].transform.localRotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
                     cars[cnt].SetActive(true);
-
                 }
 
                 if (hitName.Equals("btnPlay"))
@@ -137,19 +135,19 @@ public class Lobby : MonoBehaviour
                 {
                     selectedColor = hit.transform.GetComponent<Image>().material.color;
 
-                    switch (Lobby.cnt)
+                    switch (cnt)
                     {
                         case 0:
-                            carMaterial[0].color = Lobby.selectedColor;
+                            carMaterial[0].color = selectedColor;
                             break;
                         case 1:
-                            carMaterial[1].color = Lobby.selectedColor;
+                            carMaterial[1].color = selectedColor;
                             break;
                         case 2:
-                            carMaterial[2].color = Lobby.selectedColor;
+                            carMaterial[2].color = selectedColor;
                             break;
                         case 3:
-                            carMaterial[3].color = Lobby.selectedColor;
+                            carMaterial[3].color = selectedColor;
                             break;
                     }
                 }

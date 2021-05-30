@@ -10,7 +10,6 @@ public class InputManager : MonoBehaviour
 
     public Camera cam;
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
@@ -18,13 +17,11 @@ public class InputManager : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
+        if (Lobby.controller)
+            InputCardBoard();
+        else
+            InputPC();
 
-        //if (Lobby.controller)
-        //    InputCardBoard();
-        //else
-        //    InputPC();
-
-        InputPC();
     }
 
     void InputCardBoard()

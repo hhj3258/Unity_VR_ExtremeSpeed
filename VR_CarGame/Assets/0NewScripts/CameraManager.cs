@@ -35,14 +35,10 @@ public class CameraManager : MonoBehaviour
     void Awake()
     {
         gManager = GameManager.Instance;
-        //focus = GameObject.FindWithTag("Car");
-        //gManager.MyCar = GameObject.FindWithTag("Car");
     }
 
     private void Update()
     {
-        //Debug.Log(GameObject.FindWithTag("Car").name);
-        //Debug.Log(gManager.MyCar.name);
         try
         {
 

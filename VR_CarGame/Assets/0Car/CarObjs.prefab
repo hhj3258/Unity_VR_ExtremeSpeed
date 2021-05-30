@@ -46,12 +46,7 @@ MonoBehaviour:
   head: {fileID: 5185637653386627679}
   selectedCar:
   - {fileID: 7699555697513861852, guid: a519aed56982cc345a834da7637d1dfd, type: 3}
-  - {fileID: 8517855013619671337, guid: afadbd33c1f283c42a97e3fe98009353, type: 3}
-  - {fileID: 8106047339900227288, guid: a182b45346c73d44b961b47fcc837edd, type: 3}
-  - {fileID: 6942339676244518676, guid: dc7e415b09e1d3e488e2bb395f7892c9, type: 3}
-  - {fileID: 7356373467760867052, guid: 526a2381492a3b344bd21282661e4973, type: 3}
-  carMaterial:
-  - {fileID: 2100000, guid: d796cd947be0fc341aeee42ba0f62719, type: 2}
-  - {fileID: 2100000, guid: 39389d950d501414fa10f5fff7b0d3c6, type: 2}
-  - {fileID: 2100000, guid: 9d91fa67f1da70b4c9f752d9f22726a2, type: 2}
-  - {fileID: 2100000, guid: 2c88e51cbc480374297f5ded252d3e9b, type: 2}
+  - {fileID: 1450918438659301452, guid: afadbd33c1f283c42a97e3fe98009353, type: 3}
+  - {fileID: 2782699510581761943, guid: a182b45346c73d44b961b47fcc837edd, type: 3}
+  - {fileID: 8692176956527921915, guid: dc7e415b09e1d3e488e2bb395f7892c9, type: 3}
+  - {fileID: 5215492964316642384, guid: 526a2381492a3b344bd21282661e4973, type: 3}
