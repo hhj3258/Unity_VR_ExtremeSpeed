@@ -18,16 +18,13 @@ public class InputManager : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
-        //InputCardBoard();
 
-        Debug.Log(Lobby.controller);
-        if (Lobby.controller)
-            InputPC();
-        else
-            InputCardBoard();
+        //if (Lobby.controller)
+        //    InputCardBoard();
+        //else
+        //    InputPC();
 
-
-        //InputCardBoard();
+        InputPC();
     }
 
     void InputCardBoard()

@@ -53,7 +53,8 @@ public class ErrorReset : MonoBehaviour
                 myRot = transform.rotation;
             }
 
-            //Debug.Log(transform.name);
+            Debug.Log(transform.name);
+            Debug.Log(other.transform.name);
 
 
 

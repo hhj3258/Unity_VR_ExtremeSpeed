@@ -35,7 +35,8 @@ public class Lobby : MonoBehaviour
     public Image btnCardBoard;
 
     public static bool controller = true;
-    
+
+    [SerializeField] private Material[] carMaterial;
 
     private void Start()
     {
@@ -47,6 +48,12 @@ public class Lobby : MonoBehaviour
         selectedColor = Color.white;
         gManager.carMaterial[0].color = selectedColor;
         inputMenu = 0;
+
+        if (!controller)
+        {
+            btnXbox.gameObject.SetActive(true);
+            btnCardBoard.gameObject.SetActive(false);
+        }
     }
 
 
@@ -130,21 +137,19 @@ public class Lobby : MonoBehaviour
                 {
                     selectedColor = hit.transform.GetComponent<Image>().material.color;
 
-                    switch (cnt)
+                    switch (Lobby.cnt)
                     {
                         case 0:
-                            cars[cnt].transform.Find("body").GetComponent<Renderer>().material.color = selectedColor;
+                            carMaterial[0].color = Lobby.selectedColor;
                             break;
                         case 1:
-                            cars[cnt].transform.Find("Racing Car 1202").Find("body").GetComponent<Renderer>().material.color = selectedColor;
+                            carMaterial[1].color = Lobby.selectedColor;
                             break;
                         case 2:
-                            cars[cnt].transform.Find("body").GetComponent<Renderer>().material.color = selectedColor;
-                            cars[cnt].transform.Find("body").Find("left_door_gloss").GetComponent<Renderer>().material.color = selectedColor;
-                            cars[cnt].transform.Find("body").Find("right_door_gloss").GetComponent<Renderer>().material.color = selectedColor;
+                            carMaterial[2].color = Lobby.selectedColor;
                             break;
                         case 3:
-                            cars[cnt].transform.GetComponent<Renderer>().material.color = selectedColor;
+                            carMaterial[3].color = Lobby.selectedColor;
                             break;
                     }
                 }
@@ -163,7 +168,7 @@ public class Lobby : MonoBehaviour
                     btnCardBoard.gameObject.SetActive(false);
                     btnXbox.gameObject.SetActive(true);
 
-                    controller = true;
+                    controller = false;
                 }
                 if (hitName.Equals("btnXbox"))
                 {
@@ -171,7 +176,7 @@ public class Lobby : MonoBehaviour
                     btnCardBoard.gameObject.SetActive(true);
                     btnXbox.gameObject.SetActive(false);
 
-                    controller = false;
+                    controller = true;
                 }
             }
 

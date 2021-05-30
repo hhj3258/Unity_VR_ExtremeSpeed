@@ -5,7 +5,6 @@ using TMPro;
 
 public class beginGame : MonoBehaviour
 {
-    public TextMeshProUGUI txtTest;
 
     //트랙 시작 시
     [SerializeField] private TextMeshProUGUI txtCntDown;
@@ -143,8 +142,8 @@ public class beginGame : MonoBehaviour
             //Debug.Log("gManager.ErrorResets.Length: " + gManager.ErrorResets.Length);
         }
 
-        Debug.Log("1: "+gManager.ErrorResets[gManager.ErrorResets.Length / 2].IsEnter);
-        Debug.Log("2: "+gManager.ErrorResets[gManager.ErrorResets.Length / 2 + 1].IsEnter);
+        //Debug.Log("1: "+gManager.ErrorResets[gManager.ErrorResets.Length / 2].IsEnter);
+        //Debug.Log("2: "+gManager.ErrorResets[gManager.ErrorResets.Length / 2 + 1].IsEnter);
 
         if (gManager.ErrorResets[gManager.ErrorResets.Length / 2].IsEnter)      /////////////////수정필요
         {

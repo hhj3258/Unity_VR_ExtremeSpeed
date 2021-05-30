@@ -426,7 +426,6 @@ public class CarControl : CarSetValues
                 }
 
                 //Vector3.Dot(A, B) = Vector3.Magnitude(A) * Vector3.Magnitude(B) * Mathf.Cos(θ);
-
                 wlp.y -= Vector3.Dot(w.wheel.position - hit.point, transform.TransformDirection(0, 1, 0) / transform.lossyScale.x) - (col.radius);
                 wlp.y = Mathf.Clamp(wlp.y, -10f, w.posY);
                 floorContact = floorContact || w.drive;
