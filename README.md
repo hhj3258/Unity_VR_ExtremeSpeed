@@ -16,7 +16,7 @@
 
 ![image](https://user-images.githubusercontent.com/70702088/123806119-99135680-d929-11eb-91ce-4559e3727b19.png)
 
-### [](https://github.com/hhj3258/Unity_VR_ExtremeSpeed/tree/main/VR_CarGame/Assets/0NewScripts)
+### [Scripts](https://github.com/hhj3258/Unity_VR_ExtremeSpeed/tree/main/VR_CarGame/Assets/0NewScripts)
 
 ## 구현환경
 - Unity Ver.2018.4.10f1
