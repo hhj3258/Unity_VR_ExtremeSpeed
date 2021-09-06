@@ -12,11 +12,13 @@
 - 차량별 스펙(휠콜라이더, 무게 등)을 다르게 세팅하여 다양한 차량을 경험할 수 있습니다.
 
 ## 구현내용
+### [Scripts Folder](https://github.com/hhj3258/Unity_VR_ExtremeSpeed/tree/main/VR_CarGame/Assets/0NewScripts)
+
 ![image](https://user-images.githubusercontent.com/70702088/123806290-c102ba00-d929-11eb-89a1-6eb33b40ef7b.png)
 
 ![image](https://user-images.githubusercontent.com/70702088/123806119-99135680-d929-11eb-91ce-4559e3727b19.png)
 
-### [Scripts](https://github.com/hhj3258/Unity_VR_ExtremeSpeed/tree/main/VR_CarGame/Assets/0NewScripts)
+
 
 ## 구현환경
 - Unity Ver.2018.4.10f1
